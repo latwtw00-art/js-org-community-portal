@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS.ORG - The JavaScript Organization Portal</title>
+  
+  <!-- Favicon / Brand styling -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23FFE70B%22/><text y=%2270%22 x=%2214%22 font-family=%22sans-serif%22 font-weight=%22900%22 font-size=%2260%22 fill=%22%23000%22>JS</text></svg>">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            jsyellow: '#FFE70B',
+            neutral: {
+              850: '#202020',
+              900: '#171717',
+              950: '#0d0d0d'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['"Fira Code"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #171717;
+      color: #f5f5f5;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::selection {
+      background-color: #FFE70B;
+      color: #000000;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #1e1e1e;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #3e3e3e;
+      border-radius: 3px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #FFE70B;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-neutral-900 text-neutral-100 flex flex-col font-sans selection:bg-[#FFE70B] selection:text-black">
+
+  <!-- ================= TOP BANNER HEADER ================= -->
+  <header class="bg-[#FFE70B] text-black px-4 py-3 shadow-md border-b-2 border-black sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <a href="https://js.org" class="flex items-center gap-2 group focus:outline-none">
+          <div class="bg-black text-[#FFE70B] font-extrabold px-3 py-1 text-xl tracking-tighter rounded-sm shadow-inner transition-transform group-hover:scale-105">
+            JS.ORG
+          </div>
+          <span class="hidden sm:inline-block font-semibold text-sm tracking-wide text-neutral-900 group-hover:text-black">
+            the JavaScript organization
+          </span>
+        </a>
+      </div>
+
+      <div class="flex items-center space-x-3 text-sm font-bold">
+        <!-- Post this button -->
+        <button
+          id="btn-open-share"
+          type="button"
+          class="inline-flex items-center gap-1.5 bg-black text-[#FFE70B] hover:bg-neutral-800 px-3.5 py-1.5 rounded text-xs uppercase tracking-wider transition-all duration-150 active:scale-95 shadow-sm"
+        >
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+          <span>post this!</span>
+        </button>
+
+        <!-- GitHub star button -->
+        <a
+          href="https://github.com/js-org/js.org"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-neutral-900 hover:bg-black text-white px-3.5 py-1.5 rounded text-xs font-mono transition-all duration-150 border border-black shadow-sm group"
+        >
+          <svg class="w-4 h-4 text-white fill-current" viewBox="0 0 24 24">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+          </svg>
+          <span class="group-hover:text-[#FFE70B] transition-colors">GitHub</span>
+          <span class="bg-neutral-800 text-neutral-300 group-hover:text-white px-1.5 py-0.5 rounded text-[11px] font-semibold border border-neutral-700">4.5k★</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT WRAPPER ================= -->
+  <main class="flex-1 max-w-5xl mx-auto px-4 py-10 w-full">
+
+    <!-- HERO SECTION -->
+    <section class="text-center max-w-3xl mx-auto mb-14">
+      <div class="inline-flex items-center gap-2 bg-[#FFE70B]/10 border border-[#FFE70B]/30 text-[#FFE70B] px-3.5 py-1 rounded-full text-xs font-mono mb-4 tracking-wide shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-[#FFE70B] animate-pulse"></span>
+        Dedicated to JavaScript and its awesome community since 2015
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-5 leading-tight">
+        Are you a JavaScript developer looking for free webspace?
+      </h1>
+      <p class="text-base sm:text-lg text-neutral-300 leading-relaxed max-w-2xl mx-auto">
+        Check out <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer" class="text-[#FFE70B] underline font-semibold hover:text-yellow-300 inline-flex items-center gap-0.5">GitHub Pages<svg class="w-3.5 h-3.5 inline ml-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>. To make things perfect we provide you with a free and sleek URL like:
+      </p>
+
+      <div class="mt-6 inline-flex items-center gap-2 bg-neutral-850 border border-neutral-700 px-5 py-3 rounded-xl text-lg sm:text-2xl font-mono shadow-xl shadow-black/40">
+        <svg class="w-6 h-6 text-[#FFE70B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
+        <span class="text-neutral-500">https://</span>
+        <span id="hero-domain-highlight" class="text-[#FFE70B] font-bold border-b border-[#FFE70B]/40 pb-0.5">foo</span>
+        <span class="text-white font-bold">.js.org</span>
+      </div>
+
+      <p class="mt-4 text-xs sm:text-sm text-neutral-400">
+        Your page just has to provide some reasonable content with a clear connection to JavaScript!
+      </p>
+    </section>
+
+    <!-- 4 STEPS ONBOARDING -->
+    <section class="mb-16">
+      <div class="flex items-center justify-between mb-6 pb-2 border-b border-neutral-800">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2.5">
+          <span class="w-3 h-3 rounded-full bg-[#FFE70B] shadow-sm shadow-[#FFE70B]/50"></span>
+          Follow these four steps to get your own free JS.ORG subdomain:
+        </h2>
+        <span class="text-xs text-neutral-500 font-mono hidden sm:inline-block tracking-wider uppercase">4-Step Procedure</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="steps-container">
+        <!-- Step 1 -->
+        <div data-step="1" class="step-card p-6 rounded-xl border bg-neutral-800/90 border-[#FFE70B] shadow-lg shadow-[#FFE70B]/5 transition-all duration-200 cursor-pointer">
+          <div class="flex items-center justify-between mb-3">
+            <span class="w-9 h-9 rounded-lg bg-[#FFE70B] text-black font-extrabold flex items-center justify-center text-lg shadow">1</span>
+            <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer" class="text-xs text-[#FFE70B] hover:underline flex items-center gap-1 font-medium bg-neutral-900/60 px-2.5 py-1 rounded border border-neutral-700/50">
+              GitHub Pages Help
+              <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">GitHub Page Setup</h3>
+          <p class="text-sm text-neutral-300 leading-relaxed">
+            If you haven't already, now it's time to log in to your GitHub account and set up your GitHub Page by following the official instructions. Make sure to add some reasonable content with a clear connection to JavaScript!
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div data-step="2" class="step-card p-6 rounded-xl border bg-neutral-800/40 border-neutral-700/60 hover:border-neutral-600 transition-all duration-200 cursor-pointer">
+          <div class="flex items-center justify-between mb-3">
+            <span class="w-9 h-9 rounded-lg bg-[#FFE70B] text-black font-extrabold flex items-center justify-center text-lg shadow">2</span>
+            <a href="https://github.com/js-org/js.org/wiki" target="_blank" rel="noopener noreferrer" class="text-xs text-[#FFE70B] hover:underline flex items-center gap-1 font-medium bg-neutral-900/60 px-2.5 py-1 rounded border border-neutral-700/50">
+              Wiki Details
+              <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Pick Subdomain</h3>
+          <p class="text-sm text-neutral-300 leading-relaxed">
+            Now you should determine your js.org subdomain: either choose your username or the name of your repo according to the existing GitHub Pages URL (for http://foo.github.io/bar, either "foo.js.org" or "bar.js.org" would be possible).
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div data-step="3" class="step-card p-6 rounded-xl border bg-neutral-800/40 border-neutral-700/60 hover:border-neutral-600 transition-all duration-200 cursor-pointer">
+          <div class="flex items-center justify-between mb-3">
+            <span class="w-9 h-9 rounded-lg bg-[#FFE70B] text-black font-extrabold flex items-center justify-center text-lg shadow">3</span>
+            <a href="https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site" target="_blank" rel="noopener noreferrer" class="text-xs text-[#FFE70B] hover:underline flex items-center gap-1 font-medium bg-neutral-900/60 px-2.5 py-1 rounded border border-neutral-700/50">
+              Custom Domains Help
+              <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Add CNAME File</h3>
+          <p class="text-sm text-neutral-300 leading-relaxed">
+            Add a file named "CNAME" to your repo root (or gh-pages branch) containing a single line matching your chosen domain (e.g. "foo.js.org" without quotes).
+          </p>
+        </div>
+
+        <!-- Step 4 -->
+        <div data-step="4" class="step-card p-6 rounded-xl border bg-neutral-800/40 border-neutral-700/60 hover:border-neutral-600 transition-all duration-200 cursor-pointer">
+          <div class="flex items-center justify-between mb-3">
+            <span class="w-9 h-9 rounded-lg bg-[#FFE70B] text-black font-extrabold flex items-center justify-center text-lg shadow">4</span>
+            <a href="https://github.com/js-org/js.org/pulls" target="_blank" rel="noopener noreferrer" class="text-xs text-[#FFE70B] hover:underline flex items-center gap-1 font-medium bg-neutral-900/60 px-2.5 py-1 rounded border border-neutral-700/50">
+              Open Pull Request
+              <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Submit Pull Request</h3>
+          <p class="text-sm text-neutral-300 leading-relaxed">
+            To finish the procedure, make a pull request in our GitHub repository (js-org/js.org) adding your subdomain to cnames_active.json. Your new URL should go live within 24 hours!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE SUBDOMAIN VALIDATOR & CNAME BUILDER TOOL -->
+    <section id="generator-tool" class="mb-16 bg-neutral-850 border border-neutral-700/80 rounded-2xl p-6 sm:p-8 bg-gradient-to-b from-neutral-800/70 to-neutral-900/90 shadow-2xl relative overflow-hidden">
+      <!-- Glow effect top right -->
+      <div class="absolute -top-24 -right-24 w-64 h-64 bg-[#FFE70B]/5 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+        <div class="flex items-center gap-2.5">
+          <div class="p-2 rounded-lg bg-neutral-900 border border-neutral-700 text-[#FFE70B]">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-white">Subdomain & CNAME Generator</h2>
+        </div>
+        <span class="text-xs font-mono text-neutral-400 bg-neutral-900 px-3 py-1 rounded-full border border-neutral-700/70">
+          Real-time RFC & Rules Engine
+        </span>
+      </div>
+      <p class="text-sm text-neutral-400 mb-6">
+        Validate your prospective name, ensure there are no collisions, and copy ready-made CNAME and PR payloads.
+      </p>
+
+      <!-- Input Form -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+        <div>
+          <label class="block text-xs font-mono text-neutral-300 uppercase mb-2 font-semibold flex items-center justify-between">
+            <span>Desired JS.ORG Subdomain</span>
+            <span class="text-[11px] text-neutral-500 lowercase font-normal">3 - 32 alphanumeric chars</span>
+          </label>
+          <div class="flex items-center bg-neutral-900 border border-neutral-700 rounded-lg overflow-hidden focus-within:border-[#FFE70B] focus-within:ring-1 focus-within:ring-[#FFE70B] transition-all">
+            <input
+              type="text"
+              id="subdomain-input"
+              value="react-awesome"
+              placeholder="e.g. your-project"
+              spellcheck="false"
+              autocomplete="off"
+              class="bg-transparent px-3.5 py-3 text-white font-mono text-sm w-full outline-none placeholder:text-neutral-600"
+            />
+            <span class="bg-neutral-800 text-neutral-300 font-mono text-sm px-3.5 py-3 border-l border-neutral-700 select-none font-semibold">
+              .js.org
+            </span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-mono text-neutral-300 uppercase mb-2 font-semibold flex items-center justify-between">
+            <span>Target GitHub Pages URL</span>
+            <span class="text-[11px] text-neutral-500 lowercase font-normal">must include github.io</span>
+          </label>
+          <div class="flex items-center bg-neutral-900 border border-neutral-700 rounded-lg overflow-hidden focus-within:border-[#FFE70B] focus-within:ring-1 focus-within:ring-[#FFE70B] transition-all">
+            <input
+              type="text"
+              id="target-input"
+              value="username.github.io/react-awesome"
+              placeholder="e.g. username.github.io/project"
+              spellcheck="false"
+              autocomplete="off"
+              class="bg-transparent px-3.5 py-3 text-white font-mono text-sm w-full outline-none placeholder:text-neutral-600"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Quick Presets -->
+      <div class="flex flex-wrap items-center gap-2 mb-6 text-xs text-neutral-400">
+        <span class="font-mono text-[11px] text-neutral-500">Quick tests:</span>
+        <button type="button" class="preset-btn px-2.5 py-1 rounded bg-neutral-800 hover:bg-neutral-700 text-neutral-300 border border-neutral-700/60 transition-colors" data-sub="awesome-lib" data-target="dev.github.io/awesome-lib">awesome-lib</button>
+        <button type="button" class="preset-btn px-2.5 py-1 rounded bg-neutral-800 hover:bg-neutral-700 text-neutral-300 border border-neutral-700/60 transition-colors" data-sub="docs" data-target="team.github.io/docs">docs (reserved test)</button>
+        <button type="button" class="preset-btn px-2.5 py-1 rounded bg-neutral-800 hover:bg-neutral-700 text-neutral-300 border border-neutral-700/60 transition-colors" data-sub="my-app" data-target="custom-domain.com">invalid host test</button>
+        <button type="button" class="preset-btn px-2.5 py-1 rounded bg-neutral-800 hover:bg-neutral-700 text-neutral-300 border border-neutral-700/60 transition-colors" data-sub="a" data-target="usr.github.io/a">short length test</button>
+      </div>
+
+      <!-- Live Validation Result Message -->
+      <div id="validation-box" class="p-4 rounded-xl text-sm mb-6 flex items-start gap-3 transition-colors bg-emerald-950/40 border border-emerald-500/40 text-emerald-300">
+        <svg id="validation-icon" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        <div class="flex-1">
+          <p id="validation-text" class="font-medium">Ready! "react-awesome.js.org" is well-formatted and ready for your Pull Request.</p>
+        </div>
+      </div>
+
+      <!-- Generated Code Output Tabs -->
+      <div id="code-output-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- CNAME Snippet -->
+        <div class="bg-neutral-900 rounded-xl p-4 border border-neutral-800 relative group">
+          <div class="flex items-center justify-between mb-2 text-xs font-mono text-neutral-400">
+            <span class="flex items-center gap-1.5 font-bold text-neutral-300">
+              <svg class="w-3.5 h-3.5 text-[#FFE70B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              File: CNAME
+            </span>
+            <button
+              id="copy-cname-btn"
+              type="button"
+              class="hover:text-white bg-neutral-800 hover:bg-neutral-700 px-2.5 py-1 rounded text-neutral-300 transition-colors flex items-center gap-1 text-xs"
+            >
+              <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span class="btn-text">Copy</span>
+            </button>
+          </div>
+          <pre id="cname-code" class="bg-black/60 p-3 rounded-lg font-mono text-sm text-[#FFE70B] overflow-x-auto border border-neutral-800/80">react-awesome.js.org</pre>
+          <div class="text-[11px] text-neutral-500 mt-2 font-mono">Place in root of repository or gh-pages branch.</div>
+        </div>
+
+        <!-- PR Snippet -->
+        <div class="bg-neutral-900 rounded-xl p-4 border border-neutral-800 relative group">
+          <div class="flex items-center justify-between mb-2 text-xs font-mono text-neutral-400">
+            <span class="flex items-center gap-1.5 font-bold text-neutral-300">
+              <svg class="w-3.5 h-3.5 text-[#FFE70B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><path d="M13 6h3a2 2 0 0 1 2 2v7"></path><line x1="6" y1="9" x2="6" y2="21"></line></svg>
+              cnames_active.json entry
+            </span>
+            <button
+              id="copy-pr-btn"
+              type="button"
+              class="hover:text-white bg-neutral-800 hover:bg-neutral-700 px-2.5 py-1 rounded text-neutral-300 transition-colors flex items-center gap-1 text-xs"
+            >
+              <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span class="btn-text">Copy</span>
+            </button>
+          </div>
+          <pre id="pr-code" class="bg-black/60 p-3 rounded-lg font-mono text-sm text-neutral-200 overflow-x-auto border border-neutral-800/80">"react-awesome": "username.github.io/react-awesome",</pre>
+          <div class="text-[11px] text-neutral-500 mt-2 font-mono flex items-center justify-between">
+            <span>Add in alphabetical order in cnames_active.json</span>
+            <a href="https://github.com/js-org/js.org/blob/master/cnames_active.json" target="_blank" rel="noopener noreferrer" class="text-[#FFE70B] hover:underline inline-flex items-center gap-0.5">
+              view file
+              <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACCEPTABLE ADS NOTICE (Iconic JS.ORG element) -->
+    <section class="mb-14 text-center p-4 sm:p-5 bg-neutral-850/60 border border-neutral-800 rounded-xl">
+      <p class="text-xs sm:text-sm text-neutral-400 leading-relaxed max-w-2xl mx-auto">
+        Looks like your ad blocker worked. This would have been a paid advertisement that meets the{' '}
+        <a
+          href="https://acceptableads.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-[#FFE70B] underline hover:text-yellow-300 font-medium inline-flex items-center gap-0.5"
+        >
+          Acceptable Ads Standard
+          <svg class="w-3 h-3 ml-0.5 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        </a>.
+      </p>
+    </section>
+
+    <!-- FEATURED JS.ORG DOMAINS EXPLORER -->
+    <section class="mb-16">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-2 border-b border-neutral-800">
+        <div>
+          <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+            <svg class="w-6 h-6 text-[#FFE70B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+            Featured JS.ORG Domains
+          </h2>
+          <p class="text-xs sm:text-sm text-neutral-400 mt-0.5">A few of the thousands of JavaScript projects powered by js.org</p>
+        </div>
+
+        <div class="relative w-full sm:w-72">
+          <input
+            type="text"
+            id="domain-search"
+            placeholder="Search active projects..."
+            class="bg-neutral-850 border border-neutral-700 text-sm pl-9 pr-4 py-2.5 rounded-lg text-white font-mono outline-none focus:border-[#FFE70B] focus:ring-1 focus:ring-[#FFE70B] w-full placeholder:text-neutral-500"
+          />
+          <svg class="w-4 h-4 text-neutral-500 absolute left-3 top-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <span id="domain-count-badge" class="absolute right-3 top-3 text-[10px] font-mono bg-neutral-800 text-neutral-400 px-1.5 py-0.5 rounded">8</span>
+        </div>
+      </div>
+
+      <!-- Domain Cards Grid -->
+      <div id="domains-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Rendered dynamically by JavaScript -->
+      </div>
+    </section>
+
+    <!-- IMPORTANT TERMS NOTICE BOX -->
+    <section class="bg-neutral-900 border-l-4 border-[#FFE70B] p-6 rounded-r-xl mb-12 shadow-lg">
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-[#FFE70B] shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+        <div>
+          <h3 class="text-lg font-bold text-white mb-2">Important Notice</h3>
+          <p class="text-sm text-neutral-300 leading-relaxed">
+            As the owner of the repository, you keep complete control over your published content. But that also means
+            that all rights and duties that come along with publishing a website remain in your responsibility. Have a look
+            at our{' '}
+            <button
+              id="btn-open-terms-inline"
+              type="button"
+              class="text-[#FFE70B] underline font-medium hover:text-yellow-300 focus:outline-none"
+            >
+              Terms and Conditions
+            </button>{' '}
+            for more details.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="border-t border-neutral-800 bg-neutral-950 py-10 px-4 text-xs text-neutral-400 mt-auto">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex flex-wrap items-center justify-center md:justify-start gap-4">
+        <button
+          id="btn-open-donate"
+          type="button"
+          class="inline-flex items-center gap-1.5 text-neutral-200 bg-neutral-800 hover:bg-neutral-700 px-3.5 py-1.5 rounded transition-all duration-150 hover:text-white border border-neutral-700/60"
+        >
+          <svg class="w-3.5 h-3.5 text-rose-500 fill-current" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+          </svg>
+          <span>Donate for registrar fees</span>
+        </button>
+
+        <a
+          href="https://github.com/js-org/js.org"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-white transition-colors flex items-center gap-1 font-mono"
+        >
+          GitHub 4.5k★
+        </a>
+
+        <span class="text-neutral-600">|</span>
+        <span class="text-neutral-500 font-mono">WEBDESIGN: 20zweinull</span>
+      </div>
+
+      <div class="flex items-center space-x-3 text-neutral-400">
+        <button id="btn-open-privacy" type="button" class="hover:text-[#FFE70B] transition-colors">
+          Privacy
+        </button>
+        <span class="text-neutral-600">▪</span>
+        <button id="btn-open-imprint" type="button" class="hover:text-[#FFE70B] transition-colors">
+          Imprint
+        </button>
+        <span class="text-neutral-600">▪</span>
+        <a href="https://status.js.org" target="_blank" rel="noopener noreferrer" class="hover:text-[#FFE70B] transition-colors">
+          Status
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- Share / "Post this!" Modal -->
+  <div id="modal-share" class="fixed inset-0 z-50 bg-black/85 flex items-center justify-center p-4 backdrop-blur-sm hidden" role="dialog" aria-modal="true" aria-labelledby="share-title">
+    <div class="bg-neutral-900 border border-neutral-700 w-full max-w-md rounded-2xl p-6 shadow-2xl relative animate-scale-up">
+      <button
+        id="btn-close-share"
+        type="button"
+        class="absolute top-4 right-4 text-neutral-400 hover:text-white p-1 rounded-lg hover:bg-neutral-800 transition-colors"
+        aria-label="Close modal"
+      >
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <h3 id="share-title" class="text-xl font-bold text-white mb-2 flex items-center gap-2">
+        <svg class="w-5 h-5 text-[#FFE70B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+        Post this!
+      </h3>
+      <p class="text-sm text-neutral-300 mb-4">
+        Spread the word about JS.ORG and help other JavaScript developers obtain free subdomains for their projects.
+      </p>
+
+      <div class="bg-neutral-950 p-3.5 rounded-lg border border-neutral-800 font-mono text-xs text-neutral-300 mb-5 select-all leading-relaxed" id="share-text-box">
+Check out JS.ORG (@js_org) — free and sleek subdomains for JavaScript GitHub Pages! https://js.org
+      </div>
+
+      <div class="flex justify-end gap-2.5">
+        <button
+          id="btn-copy-share-text"
+          type="button"
+          class="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5"
+        >
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          <span class="share-copy-text">Copy text</span>
+        </button>
+
+        <a
+          id="btn-tweet-share"
+          href="https://twitter.com/intent/tweet?text=Check%20out%20JS.ORG%20(%40js_org)%20%E2%80%94%20free%20and%20sleek%20subdomains%20for%20JavaScript%20GitHub%20Pages!%20https%3A%2F%2Fjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-4 py-2 bg-[#FFE70B] text-black font-bold hover:bg-yellow-400 rounded-lg text-xs transition-colors flex items-center gap-1.5 shadow"
+        >
+          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <span>Tweet / Post</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Terms, Privacy & Imprint Modal -->
+  <div id="modal-terms" class="fixed inset-0 z-50 bg-black/85 flex items-center justify-center p-4 backdrop-blur-sm hidden" role="dialog" aria-modal="true" aria-labelledby="terms-title">
+    <div class="bg-neutral-900 border border-neutral-700 w-full max-w-lg rounded-2xl p-6 sm:p-7 shadow-2xl relative max-h-[85vh] flex flex-col">
+      <button
+        id="btn-close-terms"
+        type="button"
+        class="absolute top-4 right-4 text-neutral-400 hover:text-white p-1 rounded-lg hover:bg-neutral-800 transition-colors"
+        aria-label="Close modal"
+      >
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <h3 id="terms-title" class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+        <svg class="w-5 h-5 text-[#FFE70B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+        Terms, Privacy & Imprint
+      </h3>
+
+      <div class="space-y-4 text-xs text-neutral-300 leading-relaxed overflow-y-auto pr-2 custom-scrollbar">
+        <div class="bg-neutral-950 p-3 rounded-lg border border-neutral-800">
+          <strong class="text-white block mb-1">1. JavaScript Connection:</strong>
+          The provided service is strictly dedicated to the JavaScript community. Only repositories with an explicit connection to JavaScript or its ecosystem qualify (libraries, frameworks, tools, engines, learning resources).
+        </div>
+
+        <div class="bg-neutral-950 p-3 rounded-lg border border-neutral-800">
+          <strong class="text-white block mb-1">2. Content Responsibility & Ownership:</strong>
+          The operators of JS.ORG do not host, store, or edit any code published on users repositories. The repository owner maintains full copyright and legal liability for all material displayed on their subdomain.
+        </div>
+
+        <div class="bg-neutral-950 p-3 rounded-lg border border-neutral-800">
+          <strong class="text-white block mb-1">3. Fair Use & Reserved Names:</strong>
+          Trademarks, famous brands, and names reserved for administrative infrastructure are strictly off-limits. Subdomains registered for trademark squatting, phishing, or abusive activities will be rejected or revoked immediately.
+        </div>
+
+        <div class="bg-neutral-950 p-3 rounded-lg border border-neutral-800">
+          <strong class="text-white block mb-1">4. Pruning Policy:</strong>
+          Abandoned or inactive domains (e.g. repos that 404 or show GitHub Page not found errors for sustained periods) are subject to pruning in accordance with community guidelines to keep the directory clean.
+        </div>
+
+        <div class="bg-neutral-950 p-3 rounded-lg border border-neutral-800">
+          <strong class="text-white block mb-1">5. Privacy Statement:</strong>
+          JS.ORG does not log personal identifiable information or sell visitor metrics. GitHub Pages handles the underlying web server logs per GitHub's Privacy Statement.
+        </div>
+
+        <div class="bg-neutral-950 p-3 rounded-lg border border-neutral-800">
+          <strong class="text-white block mb-1">6. Imprint:</strong>
+          JS.ORG is a community-driven initiative organized by Stefan Judis and volunteers since 2015. Source code and issue tracking are maintained openly at <a href="https://github.com/js-org/js.org" target="_blank" rel="noopener noreferrer" class="text-[#FFE70B] underline">github.com/js-org/js.org</a>.
+        </div>
+      </div>
+
+      <div class="mt-5 pt-3 border-t border-neutral-800 flex justify-end">
+        <button
+          id="btn-ack-terms"
+          type="button"
+          class="px-5 py-2 bg-[#FFE70B] text-black font-bold hover:bg-yellow-400 rounded-lg text-xs transition-colors"
+        >
+          Understood
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Donate Modal -->
+  <div id="modal-donate" class="fixed inset-0 z-50 bg-black/85 flex items-center justify-center p-4 backdrop-blur-sm hidden" role="dialog" aria-modal="true" aria-labelledby="donate-title">
+    <div class="bg-neutral-900 border border-neutral-700 w-full max-w-md rounded-2xl p-6 shadow-2xl relative">
+      <button
+        id="btn-close-donate"
+        type="button"
+        class="absolute top-4 right-4 text-neutral-400 hover:text-white p-1 rounded-lg hover:bg-neutral-800 transition-colors"
+        aria-label="Close modal"
+      >
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <h3 id="donate-title" class="text-xl font-bold text-white mb-2 flex items-center gap-2">
+        <svg class="w-5 h-5 text-rose-500 fill-current" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        Support JS.ORG
+      </h3>
+      <p class="text-sm text-neutral-300 mb-5 leading-relaxed">
+        JS.ORG has provided free DNS resolution and hosting subdomains for thousands of developers since 2015. Contributions directly cover annual registry and DNS infrastructure fees.
+      </p>
+
+      <div class="space-y-3">
+        <a
+          href="https://github.com/sponsors/js-org"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center justify-center gap-2 bg-[#FFE70B] text-black font-bold py-2.5 px-4 rounded-lg hover:bg-yellow-400 transition-colors text-sm shadow"
+        >
+          <svg class="w-4 h-4 text-rose-600 fill-current" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          <span>GitHub Sponsors</span>
+          <svg class="w-3.5 h-3.5 ml-auto text-black/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        </a>
+
+        <a
+          href="https://opencollective.com/js-org"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center justify-center gap-2 bg-neutral-800 text-neutral-200 font-semibold py-2.5 px-4 rounded-lg hover:bg-neutral-700 transition-colors text-sm border border-neutral-700"
+        >
+          <span>Open Collective</span>
+          <svg class="w-3.5 h-3.5 ml-auto text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        </a>
+      </div>
+
+      <div class="mt-4 text-center">
+        <span class="text-[11px] text-neutral-500 font-mono">100% not-for-profit community service</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-[#FFE70B] text-black font-semibold px-4 py-2.5 rounded-lg shadow-2xl text-xs flex items-center gap-2 opacity-0 pointer-events-none transition-all duration-200 translate-y-2">
+    <svg class="w-4 h-4 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    <span id="toast-message">Copied to clipboard!</span>
+  </div>
+
+  <!-- ================= RUNTIME JAVASCRIPT ================= -->
+  <script>
+    /**
+     * JS.ORG Community Portal Compiler Runtime
+     * Faithful implementation of src/types.ts, src/data/cnames.ts, src/utils/validator.ts, and src/App.tsx
+     */
+
+    // --- 1. DATA SOURCES & RESERVED DOMAINS ---
+    const RESERVED_NAMES = new Set([
+      'www', 'api', 'app', 'mail', 'smtp', 'ns1', 'ns2', 'dns', 'git', 'github',
+      'admin', 'administrator', 'root', 'js', 'javascript', 'support', 'help',
+      'blog', 'docs', 'status', 'security', 'cname', 'portal', 'test'
+    ]);
+
+    const POPULAR_JS_ORGS = [
+      {
+        name: 'prettier',
+        target: 'prettier.github.io',
+        description: 'An opinionated code formatter supporting JavaScript and many languages.',
+        stars: 48500,
+        category: 'tool'
+      },
+      {
+        name: 'standardjs',
+        target: 'standard.github.io',
+        description: 'JavaScript style guide, with linter & automatic code fixer.',
+        stars: 28400,
+        category: 'tool'
+      },
+      {
+        name: 'sweetalert2',
+        target: 'sweetalert2.github.io',
+        description: 'A beautiful, responsive, customizable, accessible replacement for popups.',
+        stars: 16800,
+        category: 'library'
+      },
+      {
+        name: 'chartjs',
+        target: 'chartjs.github.io',
+        description: 'Simple yet flexible JavaScript charting library for designers & developers.',
+        stars: 63000,
+        category: 'library'
+      },
+      {
+        name: 'animejs',
+        target: 'juliangarnier.github.io/anime',
+        description: 'JavaScript animation engine with simple yet powerful API.',
+        stars: 47200,
+        category: 'library'
+      },
+      {
+        name: 'acorn',
+        target: 'acornjs.github.io/acorn',
+        description: 'A tiny, fast JavaScript parser written entirely in JavaScript.',
+        stars: 10400,
+        category: 'library'
+      },
+      {
+        name: 'hyperapp',
+        target: 'jorgebucaran.github.io/hyperapp',
+        description: 'The tiny framework for building modern web applications.',
+        stars: 19100,
+        category: 'framework'
+      },
+      {
+        name: 'modernizr',
+        target: 'modernizr.github.io',
+        description: 'A JavaScript library that detects HTML5 and CSS3 features in users browser.',
+        stars: 26500,
+        category: 'tool'
+      }
+    ];
+
+    // --- 2. VALIDATION UTILITY (src/utils/validator.ts) ---
+    function validateSubdomain(subdomain, githubTarget) {
+      const cleanDomain = (subdomain || '').trim().toLowerCase();
+      const cleanTarget = (githubTarget || '').trim().toLowerCase();
+
+      if (!cleanDomain) {
+        return { isValid: false, message: 'Please enter a target subdomain.' };
+      }
+
+      if (cleanDomain.length < 3) {
+        return { isValid: false, message: 'Subdomain must be at least 3 characters long.' };
+      }
+
+      if (cleanDomain.length > 32) {
+        return { isValid: false, message: 'Subdomain must not exceed 32 characters.' };
+      }
+
+      if (!/^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/.test(cleanDomain)) {
+        return {
+          isValid: false,
+          message: 'Can only contain lowercase letters, numbers, and hyphens (cannot start or end with a hyphen).'
+        };
+      }
+
+      if (RESERVED_NAMES.has(cleanDomain)) {
+        return {
+          isValid: false,
+          message: `"${cleanDomain}" is a reserved name on JS.ORG and cannot be registered.`
+        };
+      }
+
+      if (!cleanTarget) {
+        return {
+          isValid: true,
+          message: `"${cleanDomain}.js.org" is valid! Enter your GitHub Pages URL to generate CNAME.`,
+          cnameContent: `${cleanDomain}.js.org`
+        };
+      }
+
+      if (!cleanTarget.includes('github.io')) {
+        return {
+          isValid: false,
+          message: 'The target host must be a valid GitHub Pages URL (e.g. username.github.io/repo).'
+        };
+      }
+
+      const formattedTarget = cleanTarget.replace(/^https?:\/\//, '').replace(/\/+$/, '');
+
+      return {
+        isValid: true,
+        message: `Ready! "${cleanDomain}.js.org" is well-formatted and ready for your Pull Request.`,
+        cnameContent: `${cleanDomain}.js.org`,
+        prSnippet: `"${cleanDomain}": "${formattedTarget}",`
+      };
+    }
+
+    // --- 3. UI STATE & BINDINGS ---
+    const subdomainInput = document.getElementById('subdomain-input');
+    const targetInput = document.getElementById('target-input');
+    const heroHighlight = document.getElementById('hero-domain-highlight');
+    const validationBox = document.getElementById('validation-box');
+    const validationText = document.getElementById('validation-text');
+    const validationIcon = document.getElementById('validation-icon');
+    const codeOutputContainer = document.getElementById('code-output-container');
+    const cnameCode = document.getElementById('cname-code');
+    const prCode = document.getElementById('pr-code');
+    const copyCnameBtn = document.getElementById('copy-cname-btn');
+    const copyPrBtn = document.getElementById('copy-pr-btn');
+    const domainsGrid = document.getElementById('domains-grid');
+    const domainSearch = document.getElementById('domain-search');
+    const domainCountBadge = document.getElementById('domain-count-badge');
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toast-message');
+
+    // Modals
+    const modalShare = document.getElementById('modal-share');
+    const modalTerms = document.getElementById('modal-terms');
+    const modalDonate = document.getElementById('modal-donate');
+
+    // Toast Trigger
+    let toastTimeout;
+    function showToast(msg) {
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastMessage.textContent = msg;
+      toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-2');
+      toast.classList.add('opacity-100', 'translate-y-0');
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-2');
+      }, 2200);
+    }
+
+    // Clipboard Copy Helper with real Clipboard API
+    async function copyToClipboard(text, successMsg = 'Copied to clipboard!') {
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          // Fallback
+          const textArea = document.createElement("textarea");
+          textArea.value = text;
+          textArea.style.position = "fixed";
+          textArea.style.left = "-999999px";
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+          document.execCommand('copy');
+          textArea.remove();
+        }
+        showToast(successMsg);
+      } catch (err) {
+        showToast('Copied: ' + text.slice(0, 30));
+      }
+    }
+
+    // Form Update Handler
+    function updateValidator() {
+      const subValue = subdomainInput.value.trim().toLowerCase();
+      const targetValue = targetInput.value.trim();
+
+      // Update hero highlight preview
+      heroHighlight.textContent = subValue || 'foo';
+
+      const res = validateSubdomain(subValue, targetValue);
+
+      if (res.isValid) {
+        validationBox.className = 'p-4 rounded-xl text-sm mb-6 flex items-start gap-3 transition-colors bg-emerald-950/40 border border-emerald-500/40 text-emerald-300';
+        validationIcon.innerHTML = `<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>`;
+        validationIcon.className = 'w-5 h-5 text-emerald-400 shrink-0 mt-0.5';
+        validationText.textContent = res.message;
+
+        codeOutputContainer.classList.remove('hidden');
+        cnameCode.textContent = res.cnameContent || `${subValue}.js.org`;
+        prCode.textContent = res.prSnippet || `"${subValue}": "${targetValue.replace(/^https?:\/\//, '').replace(/\/+$/, '')}",`;
+      } else {
+        validationBox.className = 'p-4 rounded-xl text-sm mb-6 flex items-start gap-3 transition-colors bg-rose-950/40 border border-rose-500/40 text-rose-300';
+        validationIcon.innerHTML = `<circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line>`;
+        validationIcon.className = 'w-5 h-5 text-rose-400 shrink-0 mt-0.5';
+        validationText.textContent = res.message;
+        codeOutputContainer.classList.add('hidden');
+      }
+    }
+
+    // Event Listeners for inputs
+    subdomainInput.addEventListener('input', updateValidator);
+    targetInput.addEventListener('input', updateValidator);
+
+    // Preset Buttons
+    document.querySelectorAll('.preset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        subdomainInput.value = btn.dataset.sub;
+        targetInput.value = btn.dataset.target;
+        updateValidator();
+      });
+    });
+
+    // Copy Buttons in Generator
+    copyCnameBtn.addEventListener('click', () => {
+      copyToClipboard(cnameCode.textContent, 'CNAME file text copied!');
+      const txt = copyCnameBtn.querySelector('.btn-text');
+      txt.textContent = 'Copied!';
+      setTimeout(() => txt.textContent = 'Copy', 2000);
+    });
+
+    copyPrBtn.addEventListener('click', () => {
+      copyToClipboard(prCode.textContent, 'JSON PR entry copied!');
+      const txt = copyPrBtn.querySelector('.btn-text');
+      txt.textContent = 'Copied!';
+      setTimeout(() => txt.textContent = 'Copy', 2000);
+    });
+
+    // Interactive Step Cards
+    const stepCards = document.querySelectorAll('.step-card');
+    stepCards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        // Do not toggle if user clicked external link inside card
+        if (e.target.closest('a')) return;
+        stepCards.forEach(c => {
+          c.classList.remove('bg-neutral-800/90', 'border-[#FFE70B]', 'shadow-lg', 'shadow-[#FFE70B]/5');
+          c.classList.add('bg-neutral-800/40', 'border-neutral-700/60');
+        });
+        card.classList.remove('bg-neutral-800/40', 'border-neutral-700/60');
+        card.classList.add('bg-neutral-800/90', 'border-[#FFE70B]', 'shadow-lg', 'shadow-[#FFE70B]/5');
+      });
+    });
+
+    // Render Featured Domains with Live Search
+    function renderDomains(filter = '') {
+      const q = filter.trim().toLowerCase();
+      const list = POPULAR_JS_ORGS.filter(item => 
+        item.name.toLowerCase().includes(q) ||
+        item.description.toLowerCase().includes(q) ||
+        item.target.toLowerCase().includes(q)
+      );
+
+      domainCountBadge.textContent = list.length;
+
+      if (list.length === 0) {
+        domainsGrid.innerHTML = `
+          <div class="col-span-full py-8 text-center text-neutral-500 font-mono text-sm">
+            No projects matched "${filter}". Try searching "chart", "format", or "anime".
+          </div>
+        `;
+        return;
+      }
+
+      domainsGrid.innerHTML = list.map(item => `
+        <a
+          href="https://${item.name}.js.org"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group p-4 bg-neutral-850 hover:bg-neutral-800 border border-neutral-700/60 hover:border-[#FFE70B] rounded-xl transition-all block focus:outline-none focus:ring-1 focus:ring-[#FFE70B]"
+        >
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="font-bold font-mono text-base text-[#FFE70B] group-hover:underline">
+              ${item.name}.js.org
+            </span>
+            <svg class="w-3.5 h-3.5 text-neutral-500 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </div>
+          <p class="text-xs text-neutral-400 line-clamp-2 mb-3 min-h-[32px] leading-relaxed">${item.description}</p>
+          <div class="text-[11px] text-neutral-500 font-mono flex items-center justify-between pt-2 border-t border-neutral-800">
+            <span class="truncate max-w-[130px]" title="${item.target}">${item.target}</span>
+            <span class="text-neutral-400 font-semibold bg-neutral-900 px-1.5 py-0.5 rounded border border-neutral-800">★ ${(item.stars / 1000).toFixed(1)}k</span>
+          </div>
+        </a>
+      `).join('');
+    }
+
+    domainSearch.addEventListener('input', (e) => {
+      renderDomains(e.target.value);
+    });
+
+    // --- 4. MODALS LOGIC ---
+    function openModal(modalEl) {
+      modalEl.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(modalEl) {
+      modalEl.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    // Modal Triggers
+    document.getElementById('btn-open-share').addEventListener('click', () => openModal(modalShare));
+    document.getElementById('btn-close-share').addEventListener('click', () => closeModal(modalShare));
+
+    document.getElementById('btn-open-terms-inline').addEventListener('click', () => openModal(modalTerms));
+    document.getElementById('btn-open-privacy').addEventListener('click', () => openModal(modalTerms));
+    document.getElementById('btn-open-imprint').addEventListener('click', () => openModal(modalTerms));
+    document.getElementById('btn-close-terms').addEventListener('click', () => closeModal(modalTerms));
+    document.getElementById('btn-ack-terms').addEventListener('click', () => closeModal(modalTerms));
+
+    document.getElementById('btn-open-donate').addEventListener('click', () => openModal(modalDonate));
+    document.getElementById('btn-close-donate').addEventListener('click', () => closeModal(modalDonate));
+
+    // Share copy button
+    document.getElementById('btn-copy-share-text').addEventListener('click', () => {
+      const shareTxt = document.getElementById('share-text-box').textContent.trim();
+      copyToClipboard(shareTxt, 'Share message copied!');
+      const span = document.querySelector('.share-copy-text');
+      span.textContent = 'Copied text!';
+      setTimeout(() => span.textContent = 'Copy text', 2000);
+    });
+
+    // Close modals on clicking overlay backdrop
+    [modalShare, modalTerms, modalDonate].forEach(modal => {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          closeModal(modal);
+        }
+      });
+    });
+
+    // Keyboard ESC listener
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal(modalShare);
+        closeModal(modalTerms);
+        closeModal(modalDonate);
+      }
+    });
+
+    // Initial run
+    updateValidator();
+    renderDomains();
+  </script>
+
+
+<!-- FlashLite Natural Link & Navigation Engine -->
+<script id="flashlite-real-link-engine">
+(function() {
+  'use strict';
+
+  function setupNaturalLinks() {
+    var links = document.querySelectorAll('a[href]');
+    
+    links.forEach(function(el) {
+      if (el.dataset.flashliteHandled === 'true') return;
+      el.dataset.flashliteHandled = 'true';
+
+      var href = (el.getAttribute('href') || '').trim();
+
+      // For external URLs: ensure safe opening in new tab
+      if (/^https?:\/\//i.test(href)) {
+        el.setAttribute('target', '_blank');
+        el.setAttribute('rel', 'noopener noreferrer');
+      }
+    });
+  }
+
+  // Smooth anchor scrolling without preventing normal JS behavior
+  document.addEventListener('click', function(e) {
+    var target = e.target;
+    if (!(target instanceof Element)) return;
+    var link = target.closest('a[href]');
+    if (!link) return;
+
+    var href = (link.getAttribute('href') || '').trim();
+
+    // Anchor links (#id)
+    if (href.startsWith('#') && href.length > 1) {
+      var targetId = href.slice(1);
+      var targetElem = document.getElementById(targetId) || document.querySelector('[name="' + targetId + '"]');
+      if (targetElem) {
+        e.preventDefault();
+        targetElem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+    }
+
+    // External links: open in new tab if not already doing so
+    if (/^https?:\/\//i.test(href)) {
+      e.preventDefault();
+      window.open(href, '_blank', 'noopener,noreferrer');
+      return;
+    }
+
+    // Notice: For "#", "javascript:void(0)", buttons, or relative links,
+    // do NOT call e.preventDefault()! Allow the site's own JavaScript and components to execute naturally.
+  }, false);
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupNaturalLinks);
+  } else {
+    setupNaturalLinks();
+  }
+
+  try {
+    var observer = new MutationObserver(function() { setupNaturalLinks(); });
+    observer.observe(document.documentElement || document.body, { childList: true, subtree: true });
+  } catch(e) {}
+})();
+</script>
+
+</body>
+</html>
